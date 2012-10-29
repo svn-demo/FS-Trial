@@ -53,7 +53,7 @@ def sample_dealerInfo():
     emp = []
     emp.append(dict(name=u'Sample Empl1',email=u'Sample1@W.com',phone=u'122-123-1234',title=u'Title1',description=u'Description',fax=u'fax'))
     emp.append(dict(name=u'Sample Empl2',email=u'Sample2@W.com',phone=u'122-123-1234',title=u'Title2',description=u'Description2',fax=u'fax'))
-#    emp.append(dict(name=u'Samba',email=u'Samba2@gmail.com',phone=u'122-123-1234',title=u'Senior Manager',description=u'Senior Level',fax=u'022-21630175'))
+    emp.append(dict(name=u'Samba',email=u'Samba2@gmail.com',phone=u'122-123-1234',title=u'Senior Manager',description=u'Senior Level',fax=u'022-21630175'))
     dealer_info['employees'] = emp
     dealer_info.save()
    
