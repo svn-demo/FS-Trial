@@ -1,0 +1,61 @@
+{% extends "themes/default/default.html" %}
+
+{% block page_content %}
+
+<div align="right">
+<button style="cursor:pointer" type="button" onclick="window.print();">Print</button>
+</div>
+
+<div>
+<h4>Our Staff</h4>
+</div>
+<hr>
+<div>
+<p>Our entire staff welcomes you to our dealership website. We hope that you find everything that you are looking for while you are here. Learn more about our team by pointing your mouse at the picture or name of each staff member. We recommend you take a look at our updated New Vehicle Inventory, and if you have any questions please contact us at your convenience.</p>
+</div>
+
+<h4>Our Staff Members</h4>
+<hr>
+<div class="">
+{% if info['employees'] is defined %}
+
+<div class="row">
+{% for employee in  info['employees'] %}
+	<div class="span4">
+		<div class="row" id='pop'>
+			<div class="span1"> 
+				<img id="foo" src="http://placehold.it/50x65" alt="" align="left" rel="popover" data-title="{{employee.name}}" data-placement="right"/>
+			</div>
+			<div class="span2">
+				<b  href="#" rel="popover" data-content="It's so simple to create a tooltop for my website!" data-original-title="Twitter Bootstrap Popover">{{employee.name|e}}</b>
+				<br>{{employee.title|e}}
+				<br>phone:{{employee.phone|e}}
+				<br>fax:{{employee.fax|e}}
+				<br>email:{{employee.email|e}}
+			</div>
+		</div>
+	</div>
+		{% endfor %}
+</div>
+	{% else %}
+		<h1 align="center">No Employees Found</h1>
+	{% endif %}
+	
+</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>  
+<script src="/twitter-bootstrap/twitter-bootstrap-v2/js/bootstrap-tooltip.js"></script>  
+<script src="/twitter-bootstrap/twitter-bootstrap-v2/js/bootstrap-popover.js"></script> 
+
+<script>
+$(function (){ 
+	$("#foo").popover();
+});
+</script>
+<script>  
+$(function ()  
+{ $("#item").popover();  
+});  
+</script>
+
+{% endblock %}

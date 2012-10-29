@@ -1,0 +1,43 @@
+<html>
+<style>
+.btn-left-bg {
+        background: url("btn-left-bg.png") no-repeat scroll 0px 0px;
+        height: 34px;
+        width: 6px;
+        .pull-left;
+    }
+
+    .btn-mid-bg {
+        background: url("btn-mid-bg.png") repeat-x scroll 0px 0px;
+        height: 34px;
+        width: auto;
+        .pull-left;
+        padding: 6px;
+    }
+
+    .btn-right-bg {
+        background: url("btn-right-bg.png") no-repeat scroll 0px 0px;
+        height: 34px;
+        width: 31px;
+        .pull-left;
+    }
+
+    .btn-simulate {
+        cursor: pointer;
+        margin-right: 12px;
+        float: right;
+        color: #ffffff;
+        font-weight: bold;
+    }
+</style>
+<form name='test' id='test' action="#" method="POST">
+<input type="text" value="" required="required" name="model" id="model">  
+<div onClick="document.test.submit()">Click</div>
+<input type="submit"/>
+<div class="btn-simulate" id="appraisal_contact">
+    <div class="btn-left-bg"></div>
+    <div class="btn-mid-bg"><span>GET YOUR APPRAISAL</span></div>
+    <div class="btn-right-bg"></div>
+</div>
+</form>
+</html>
