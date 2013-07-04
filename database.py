@@ -1,4 +1,5 @@
 # -*- coding: utf8 -*-
+verfying upstream remote configuration
 adding trial code
 nothing
 from ngds.core import model as dbmodel
