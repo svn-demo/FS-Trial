@@ -1,5 +1,7 @@
 # -*- coding: utf8 -*-
+verfying upstream remote configuration
 adding trial code
+verfiy upstream2
 nothing
 from ngds.core import model as dbmodel
 from ngds.core.model import get_conn
