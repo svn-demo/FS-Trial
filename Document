@@ -1,0 +1,99 @@
+Overview:
+
+This document covers the process to setup the development environment on a amazon linux AMI ec2 instance. The following softwares are configured to build, deploy and run the applications on the apache tomcat server.
+ 
+1. Subversion 1.7.9
+2. Maven 3.0.5
+3. Apache Tomcat 7.0.40
+
+System Requirements:
+
+Java – The Amazon linux AMI has a JRE preinstalled and the JAVA_HOME environment varailable alreay set. To verify run:
+$java -version
+java version "1.6.0_24"
+OpenJDK Runtime Environment (IcedTea6 1.11.11) (amazon-61.1.11.11.53.amzn1-x86_64)
+OpenJDK 64-Bit Server VM (build 20.0-b12, mixed mode)
+
+To Setup Subversion:
+
+Execute the following commands in the terminal to install subversion.
+$ yum install subversion -y
+$ yum install mod_dav_svn -y
+
+Execute the below command to verify the installation:
+$svn -version
+
+To Setup Maven:
+
+Download the maven zip file from the maven official website, download link is http://maven.apache.org/download.cgi and the latest version is apache-Maven 3.0.5.
+
+Unzip the distribution archive, i.e apache-maven-3.0.5-bin.tar.gz to the directory of your choice.
+$tar -xzf apache-maven-3.0.5-bin.tar.gz
+
+These instructions assume you choose /usr/share/maven and the subdirectory apache-maven-3.0.5 will be created.
+
+Add the below environment variables to your ~./bashrc file
+
+export M2_HOME=/usr/share/maven/apache-maven-3.0.5
+export PATH=$M2_HOME/bin:$PATH
+export MAVEN_OPTS="-Xms256m -Xmx512m"
+
+Execute the below command in the terminal to verify the installation
+
+$mvn -version
+
+To setup Apache Tomcat 7.0:
+Install tomcat from the official repo
+$yum install tomcat7 -y
+
+Add the following to the tomcat7.conf file
+$vi /etc/tomcat7/tomcat7.conf
+
+JAVA_OPTS="-Djava.awt.headless=true -Dfile.encoding=UTF-8 -Xms1536m -Xmx1536m -XX:PermSize=256m -XX:MaxPermSize=512m"
+
+Configure workspace:
+
+Subversion repository is hosted on Unfuddle and to access the project repository
+
+svn checkout https://fast.unfuddle.com/svn/fast_fs/ /Applications/FastSpringDev
+
+Build:
+Once Maven is installed, open command prompt and change directory to ~/fs_workspace/com.bright.build/ and run
+
+mvn -Ptest clean package 
+
+Configure Tomcat Server for Springboard:
+
+- To increase the memory of the Java JVM,  add the following to the tomcat7.conf file
+
+$vi /etc/tomcat7/tomcat7.conf
+
+JAVA_OPTS="-Djava.awt.headless=true -Dfile.encoding=UTF-8 -Xms1536m -Xmx1536m -XX:PermSize=256m -XX:MaxPermSize=512m" 
+
+Delete /webapps/* and /work/* 
+Copy server.xml to /conf 
+Copy context.xml to /conf 
+Copy mail-1.4.jar to /lib 
+Copy hsqldb-2.2.9.jar to /lib 
+Copy log4j.properties to /lib 
+
+Configure SSL support on Tomcat. 
+Create a keystorefile to store the server's private key and self-signed certificate by executing the following command inside /conf:
+keytool -genkey -alias tomcat -keyalg RSA -keystore conf/keystore -storepass changeit 
+
+*Comment APR lifecycle listener in the server.xml to allow tomcat to use the Java JSSE implementation.
+
+Configure SMTP Server:
+Install postfix package from the official repo:
+yum install postfix* -y
+
+Change the smtp port number form 3025 to 25 in the mail resource of the /conf/server.xml. 
+
+
+
+Deploy:
+
+To deploy the applications execute deploy.sh
+
+To start the server use the command
+$sudo service tomcat7 start
